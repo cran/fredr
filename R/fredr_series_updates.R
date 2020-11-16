@@ -26,7 +26,7 @@
 #'
 #' @section API Documentation:
 #'
-#' [fred/series/updates](https://research.stlouisfed.org/docs/api/fred/series_updates.html)
+#' [fred/series/updates](https://fred.stlouisfed.org/docs/api/fred/series_updates.html)
 #'
 #' @seealso [fredr_series_observations()], [fredr_series_search_text()],
 #' [fredr_series_search_id()], [fredr_series_search_tags()],
@@ -35,7 +35,7 @@
 #' [fredr_series_vintagedates()].
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # Get all recently updated "regional" series
 #' fredr_series_updates(filter_value = "regional")
 #' # Most recently udpated series are returned first
@@ -43,22 +43,24 @@
 #' is.unsorted(rev(as.POSIXct(updates)))
 #' }
 #' @export
-fredr_series_updates <- function(filter_value = NULL,
+fredr_series_updates <- function(...,
+                                 filter_value = NULL,
                                  start_time = NULL,
                                  end_time = NULL,
                                  limit = NULL,
                                  offset = NULL,
                                  realtime_start = NULL,
                                  realtime_end = NULL) {
+  check_dots_empty(...)
 
   user_args <- capture_args(
-    limit,
-    offset,
-    filter_value,
-    start_time,
-    end_time,
-    realtime_start,
-    realtime_end
+    limit = limit,
+    offset = offset,
+    filter_value = filter_value,
+    start_time = start_time,
+    end_time = end_time,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end
   )
 
   fredr_args <- list(
@@ -66,5 +68,4 @@ fredr_series_updates <- function(filter_value = NULL,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }

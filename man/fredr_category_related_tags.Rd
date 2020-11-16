@@ -4,18 +4,28 @@
 \alias{fredr_category_related_tags}
 \title{Get the related FRED tags within a category}
 \usage{
-fredr_category_related_tags(category_id = 0L, tag_names = NULL,
-  exclude_tag_names = NULL, tag_group_id = NULL, search_text = NULL,
-  limit = NULL, offset = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_category_related_tags(
+  category_id,
+  tag_names,
+  ...,
+  exclude_tag_names = NULL,
+  tag_group_id = NULL,
+  search_text = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{category_id}{An integer ID for the category.  Default is \code{0} for the
-root category. \emph{Required parameter.}}
+\item{category_id}{An integer ID for the category.}
 
 \item{tag_names}{A string indicating which series tags to match.  Multiple
-tags can be delimited by a semicolon in a single string (e.g. `"usa;gnp"``).
-\emph{Required parameter.}}
+tags can be delimited by a semicolon in a single string (e.g. \code{"usa;gnp"}).}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{exclude_tag_names}{A string indicating which series tags should \emph{not}
 be matched.  Multiple tags can be delimited by a semicolon in a single string
@@ -43,18 +53,18 @@ long series.  This mimics the idea of \emph{pagination} to retrieve large amount
 of data over multiple calls. Defaults to \code{0}.}
 
 \item{order_by}{Order results by values of the specified attribute.
-Possible values include: \code{"series_count"} (default), \code{"popularity"``,}"created"\code{,}"name"\code{,}"group_id"`.}
+Possible values include: \code{"series_count"} (default), \verb{"popularity"``, }"created"\verb{, }"name"\verb{, }"group_id"`.}
 
 \item{sort_order}{A string representing the order of the resulting series.
 Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object information on related tags matching the request.
@@ -74,11 +84,11 @@ that does not have series.
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/category_related_tags.html}{fred/category/related_tags}
+\href{https://fred.stlouisfed.org/docs/api/fred/category_related_tags.html}{fred/category/related_tags}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # First, get the tags for the "Production & Business Activity" category
 fredr_category_tags(1L)
 # Then, get the tags related to "business" and "monthly" for the

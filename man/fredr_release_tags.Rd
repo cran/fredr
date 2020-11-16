@@ -4,13 +4,24 @@
 \alias{fredr_release_tags}
 \title{Get the FRED tags for a release}
 \usage{
-fredr_release_tags(release_id = NULL, tag_names = NULL,
-  tag_group_id = NULL, search_text = NULL, limit = NULL, offset = NULL,
-  order_by = NULL, sort_order = NULL, realtime_start = NULL,
-  realtime_end = NULL)
+fredr_release_tags(
+  release_id,
+  ...,
+  tag_names = NULL,
+  tag_group_id = NULL,
+  search_text = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{release_id}{An integer ID of the release. \emph{Required parameter.}}
+\item{release_id}{An integer ID of the release.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{tag_names}{A semicolon delimited string of tag names to only
 include in the response. No filtering by tag names by default (i.e. \emph{all}
@@ -54,11 +65,11 @@ are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -70,11 +81,11 @@ tag group, or search text.
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/release_tags.html}{fred/release/tags}
+\href{https://fred.stlouisfed.org/docs/api/fred/release_tags.html}{fred/release/tags}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 fredr_release_tags(release_id = 10L)
 }
 }

@@ -3,7 +3,7 @@
 #' Given a series ID, return observations of that series as a `tibble` object.
 #' `fredr()` is an alias for `fredr_series_observations()`.
 #'
-#' @param series_id A string ID for the FRED series. _Required parameter._
+#' @param series_id A string ID for the FRED series.
 #'
 #' @param observation_start A `Date` indicating the start of the observation period.
 #' Defaults to `1776-07-04`, the earliest available date.
@@ -64,11 +64,11 @@
 #'
 #' @param realtime_start A `Date` indicating the start of the real-time period.
 #' Defaults to today's date. For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
 #'
 #' @param realtime_end A `Date` indicating the end of the real-time period.
 #' Defaults to today's date. For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
 #'
 #' @param vintage_dates A vector of `Date` objects to download data for.
 #' Vintage dates are used to download data as it existed on these specified
@@ -83,11 +83,13 @@
 #' * `3` for Observations by Vintage Date, New and Revised Observations Only
 #' * `4` for Observations, Initial Release Only.
 #'
+#' @param ... These dots only exist for future extensions and should be empty.
+#'
 #' @return A `tibble` object with observation dates and values.
 #'
 #' @section API Documentation:
 #'
-#' [fred/series/observations](https://research.stlouisfed.org/docs/api/fred/series_observations.html)
+#' [fred/series/observations](https://fred.stlouisfed.org/docs/api/fred/series_observations.html)
 #'
 #' @seealso [fredr_series_search_text()],
 #' [fredr_series_search_id()], [fredr_series_search_tags()],
@@ -96,14 +98,14 @@
 #' [fredr_series_vintagedates()].
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # Observations for "UNRATE" series between 1980 and 2000.  Units are in terms
-#' # of change from pervious observation.
+#' # of change from previous observation.
 #' fredr(
 #'   series_id = "UNRATE",
 #'   observation_start = as.Date("1980-01-01"),
 #'   observation_end = as.Date("2000-01-01"),
-#'   unit = "chg"
+#'   units = "chg"
 #' )
 #' # All observations for "OILPRICE" series.  The data is first aggregated by
 #' # quarter by taking the average of all observations in the quarter then
@@ -112,7 +114,7 @@
 #'   series_id = "OILPRICE",
 #'   frequency = "q",
 #'   aggregation_method = "avg",
-#'   unit = "log"
+#'   units = "log"
 #' )
 #'
 #' # To retrieve values for multiple series, use purrr's map_dfr() function.
@@ -138,7 +140,8 @@
 #' }
 #' @rdname fredr
 #' @export
-fredr_series_observations <- function(series_id = NULL,
+fredr_series_observations <- function(series_id,
+                                      ...,
                                       observation_start = NULL,
                                       observation_end = NULL,
                                       frequency = NULL,
@@ -151,26 +154,26 @@ fredr_series_observations <- function(series_id = NULL,
                                       realtime_end = NULL,
                                       vintage_dates = NULL,
                                       output_type = NULL) {
-
-  validate_series_id(series_id)
+  check_dots_empty(...)
+  check_not_null(series_id, "series_id")
 
   user_args <- capture_args(
-    observation_start,
-    observation_end,
-    frequency,
-    aggregation_method,
-    limit,
-    offset,
-    sort_order,
-    units,
-    realtime_start,
-    realtime_end,
-    vintage_dates,
-    output_type
+    series_id = series_id,
+    observation_start = observation_start,
+    observation_end = observation_end,
+    frequency = frequency,
+    aggregation_method = aggregation_method,
+    limit = limit,
+    offset = offset,
+    sort_order = sort_order,
+    units = units,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end,
+    vintage_dates = vintage_dates,
+    output_type = output_type
   )
 
   fredr_args <- list(
-    series_id = series_id,
     endpoint = "series/observations"
   )
 
@@ -188,7 +191,7 @@ fredr_series_observations <- function(series_id = NULL,
     value = as.numeric(frame$value)
   )
 
-  return(obs)
+  obs
 }
 
 #' @rdname fredr

@@ -4,14 +4,24 @@
 \alias{fredr_related_tags}
 \title{Get related FRED tags given one or more tags}
 \usage{
-fredr_related_tags(tag_names = NULL, exclude_tag_names = NULL,
-  tag_group_id = NULL, search_text = NULL, limit = NULL, offset = NULL,
-  order_by = NULL, sort_order = NULL, realtime_start = NULL,
-  realtime_end = NULL)
+fredr_related_tags(
+  tag_names,
+  ...,
+  exclude_tag_names = NULL,
+  tag_group_id = NULL,
+  search_text = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{tag_names}{A semicolon delimited string of tag names to be related to.
-\emph{Required parameter.}}
+\item{tag_names}{A semicolon delimited string of tag names to be related to.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{exclude_tag_names}{A semicolon delimited string of tag names that series
 match \emph{none} of. No exclusions are done by default.}
@@ -54,11 +64,11 @@ are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} containing tags related to \code{tag_names} and their
@@ -74,12 +84,12 @@ search text. Related FRED tags are the tags assigned to series that match
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/related_tags.html}{fred/related_tags}
+\href{https://fred.stlouisfed.org/docs/api/fred/related_tags.html}{fred/related_tags}
 }
 
 \examples{
 
-\donttest{
+if (fredr_has_key()) {
 
 fredr_related_tags(tag_names = "monetary aggregates;weekly")
 

@@ -4,11 +4,18 @@
 \alias{fredr_release_tables}
 \title{Get release table trees for a given release}
 \usage{
-fredr_release_tables(release_id = NULL, element_id = NULL,
-  include_observation_values = NULL, observation_date = NULL)
+fredr_release_tables(
+  release_id,
+  ...,
+  element_id = NULL,
+  include_observation_values = NULL,
+  observation_date = NULL
+)
 }
 \arguments{
-\item{release_id}{An integer ID of the release. \emph{Required parameter.}}
+\item{release_id}{An integer ID of the release.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{element_id}{An integer ID for the desired release table element.}
 
@@ -30,11 +37,11 @@ You can go directly to the tree structure by passing the appropriate
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/release_tables.html}{fred/release/tables}
+\href{https://fred.stlouisfed.org/docs/api/fred/release_tables.html}{fred/release/tables}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 fredr_release_tables(release_id = 10L)
 
 # Digging further into a release element

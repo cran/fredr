@@ -4,11 +4,20 @@
 \alias{fredr_releases_dates}
 \title{Get release dates for \emph{all} releases of economic data.}
 \usage{
-fredr_releases_dates(limit = NULL, offset = NULL, sort_order = NULL,
-  order_by = NULL, include_release_dates_with_no_data = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_releases_dates(
+  ...,
+  limit = NULL,
+  offset = NULL,
+  sort_order = NULL,
+  order_by = NULL,
+  include_release_dates_with_no_data = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
+\item{...}{These dots only exist for future extensions and should be empty.}
+
 \item{limit}{An integer limit on the maximum number of results to return.
 Defaults to \code{1000}, the maximum.}
 
@@ -28,11 +37,11 @@ results with no data available should be returned as well.  Default is \code{FAL
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to the first day of the current year. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to \code{9999-12-31} (latest available). For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -45,11 +54,11 @@ data will be available on the FRED or ALFRED websites.
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/releases_dates.html}{fred/releases/dates}
+\href{https://fred.stlouisfed.org/docs/api/fred/releases_dates.html}{fred/releases/dates}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 fredr_releases_dates(limit = 20L)
 }
 }

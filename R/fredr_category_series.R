@@ -1,10 +1,9 @@
 #' Get the series in a category
 #'
-#' @param category_id An integer ID for the category.  Default is `0` for the
-#' root category. _Required parameter._
+#' @param category_id An integer ID for the category.
 #'
 #' @param tag_names A string indicating which series tags to match.  Multiple
-#' tags can be delimited by a semicolon in a single string (e.g. `"usa;gnp"``).
+#' tags can be delimited by a semicolon in a single string (e.g. `"usa;gnp"`).
 #'
 #' @param exclude_tag_names A string indicating which series tags should _not_
 #' be matched.  Multiple tags can be delimited by a semicolon in a single string
@@ -47,31 +46,34 @@
 #'
 #' @param realtime_start A `Date` indicating the start of the real-time period.
 #' Defaults to today's date. For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
 #'
 #' @param realtime_end A `Date` indicating the end of the real-time period.
 #' Defaults to today's date. For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
+#'
+#' @param ... These dots only exist for future extensions and should be empty.
 #'
 #' @return A `tibble` object with information for series matching the request for
 #' the category specified in `category_id`.
 #'
 #' @section API Documentation:
 #'
-#' [fred/category/series](https://research.stlouisfed.org/docs/api/fred/category_series.html)
+#' [fred/category/series](https://fred.stlouisfed.org/docs/api/fred/category_series.html)
 #'
 #' @seealso [fredr_category()], [fredr_category_children()], [fredr_category_related()],
 #'  [fredr_category_tags()], [fredr_category_related_tags()]
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # Top 10 most popular series belonging to the "Employment Cost Index" category
 #' fredr_category_series(category_id = 1L, limit = 10L, order_by = "popularity")
 #' # Series in the "Employment Cost Index" category, ordered by descending observation frequency
 #' fredr_category_series(category_id = 4L, order_by = "frequency", sort_order = "desc")
 #' }
 #' @export
-fredr_category_series <- function(category_id = 0L,
+fredr_category_series <- function(category_id,
+                                  ...,
                                   filter_variable = NULL,
                                   filter_value = NULL,
                                   tag_names = NULL,
@@ -82,21 +84,21 @@ fredr_category_series <- function(category_id = 0L,
                                   sort_order = NULL,
                                   realtime_start = NULL,
                                   realtime_end = NULL) {
-
-  validate_category_id(category_id)
+  check_dots_empty(...)
+  check_not_null(category_id, "category_id")
 
   user_args <- capture_args(
-    category_id,
-    realtime_start,
-    realtime_end,
-    limit,
-    offset,
-    order_by,
-    sort_order,
-    filter_variable,
-    filter_value,
-    tag_names,
-    exclude_tag_names
+    category_id = category_id,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end,
+    limit = limit,
+    offset = offset,
+    order_by = order_by,
+    sort_order = sort_order,
+    filter_variable = filter_variable,
+    filter_value = filter_value,
+    tag_names = tag_names,
+    exclude_tag_names = exclude_tag_names
   )
 
   fredr_args <- list(
@@ -104,5 +106,4 @@ fredr_category_series <- function(category_id = 0L,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }

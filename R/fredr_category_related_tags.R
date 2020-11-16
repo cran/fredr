@@ -9,12 +9,10 @@
 #' it is possible to get the tags for a category. No tags exist for a category
 #' that does not have series.
 #'
-#' @param category_id An integer ID for the category.  Default is `0` for the
-#' root category. _Required parameter._
+#' @param category_id An integer ID for the category.
 #'
 #' @param tag_names A string indicating which series tags to match.  Multiple
-#' tags can be delimited by a semicolon in a single string (e.g. `"usa;gnp"``).
-#' _Required parameter._
+#' tags can be delimited by a semicolon in a single string (e.g. `"usa;gnp"`).
 #'
 #' @param exclude_tag_names A string indicating which series tags should _not_
 #' be matched.  Multiple tags can be delimited by a semicolon in a single string
@@ -49,11 +47,13 @@
 #'
 #' @param realtime_start A `Date` indicating the start of the real-time period.
 #' Defaults to today's date. For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
 #'
 #' @param realtime_end A `Date` indicating the end of the real-time period.
 #' Defaults to today's date. For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
+#'
+#' @param ... These dots only exist for future extensions and should be empty.
 #'
 #' @return A `tibble` object information on related tags matching the request.
 #' Data include tag name, group ID, popularity, series count, tag creation date,
@@ -61,13 +61,13 @@
 #'
 #' @section API Documentation:
 #'
-#' [fred/category/related_tags](https://research.stlouisfed.org/docs/api/fred/category_related_tags.html)
+#' [fred/category/related_tags](https://fred.stlouisfed.org/docs/api/fred/category_related_tags.html)
 #'
 #' @seealso [fredr_category()], [fredr_category_children()], [fredr_category_related()],
 #' [fredr_category_series()], [fredr_category_tags()]
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # First, get the tags for the "Production & Business Activity" category
 #' fredr_category_tags(1L)
 #' # Then, get the tags related to "business" and "monthly" for the
@@ -75,8 +75,9 @@
 #' fredr_category_related_tags(category_id = 1L, tag_names = "business;monthly")
 #' }
 #' @export
-fredr_category_related_tags <- function(category_id = 0L,
-                                        tag_names = NULL,
+fredr_category_related_tags <- function(category_id,
+                                        tag_names,
+                                        ...,
                                         exclude_tag_names = NULL,
                                         tag_group_id = NULL,
                                         search_text = NULL,
@@ -86,23 +87,22 @@ fredr_category_related_tags <- function(category_id = 0L,
                                         sort_order = NULL,
                                         realtime_start = NULL,
                                         realtime_end = NULL) {
-
-  validate_category_id(category_id)
-
-  validate_required_string_param(tag_names)
+  check_dots_empty(...)
+  check_not_null(category_id, "category_id")
+  check_not_null(tag_names, "tag_names")
 
   user_args <- capture_args(
-    category_id,
-    realtime_start,
-    realtime_end,
-    tag_names,
-    exclude_tag_names,
-    tag_group_id,
-    search_text,
-    limit,
-    offset,
-    order_by,
-    sort_order
+    category_id = category_id,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end,
+    tag_names = tag_names,
+    exclude_tag_names = exclude_tag_names,
+    tag_group_id = tag_group_id,
+    search_text = search_text,
+    limit = limit,
+    offset = offset,
+    order_by = order_by,
+    sort_order = sort_order
   )
 
   fredr_args <- list(
@@ -110,5 +110,4 @@ fredr_category_related_tags <- function(category_id = 0L,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }

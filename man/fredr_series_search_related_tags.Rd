@@ -4,17 +4,27 @@
 \alias{fredr_series_search_related_tags}
 \title{Get the related FRED tags for one or more FRED tags matching a series search}
 \usage{
-fredr_series_search_related_tags(series_search_text = NULL,
-  tag_names = NULL, exclude_tag_names = NULL, tag_group_id = NULL,
-  tag_search_text = NULL, limit = NULL, offset = NULL, order_by = NULL,
-  sort_order = NULL, realtime_start = NULL, realtime_end = NULL)
+fredr_series_search_related_tags(
+  series_search_text,
+  tag_names,
+  ...,
+  exclude_tag_names = NULL,
+  tag_group_id = NULL,
+  tag_search_text = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{series_search_text}{A string containing the series search text.
-\emph{Required parameter.}}
+\item{series_search_text}{A string containing the series search text.}
 
-\item{tag_names}{A semicolon delimited string of tag names to return.  Defaults
-no filtering by tag names.  \emph{Required parameter.}}
+\item{tag_names}{A semicolon delimited string of tag names to return.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{exclude_tag_names}{A semicolon delimited string of tag names that
 series match \emph{none} of.  Defaults to no tag filtering.}
@@ -56,11 +66,11 @@ Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -69,10 +79,10 @@ A \code{tibble} object.
 FRED tags are attributes assigned to series.  Return the \emph{related} FRED tags
 for a search: tags assigned to series that match \emph{all} tags in the \code{tag_names}
 parameter (required), \emph{no} tags in the \code{exclude_tag_names} (optional) and the
-search words set by the \code{series_search_text} parameter (optional).
+search words set by the \code{series_search_text} parameter (required).
 }
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Search for all tags matching the series text "oil" and the tag "usa".
 fredr_series_search_related_tags(
   series_search_text = "oil",
@@ -92,7 +102,7 @@ fredr_series_search_related_tags(
 \references{
 API Documentation:
 
-\href{https://research.stlouisfed.org/docs/api/fred/series_search_related_tags.html}{series/search/related_tags}
+\href{https://fred.stlouisfed.org/docs/api/fred/series_search_related_tags.html}{series/search/related_tags}
 }
 \seealso{
 \code{\link[=fredr_series_observations]{fredr_series_observations()}}, \code{\link[=fredr_series_search_text]{fredr_series_search_text()}},

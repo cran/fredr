@@ -11,7 +11,7 @@
 #'
 #' @section API Documentation:
 #'
-#' [fred/series/categories](https://research.stlouisfed.org/docs/api/fred/series_categories.html)
+#' [fred/series/categories](https://fred.stlouisfed.org/docs/api/fred/series_categories.html)
 #'
 #' @seealso [fredr_series_observations()], [fredr_series_search_text()],
 #' [fredr_series_search_id()], [fredr_series_search_tags()],
@@ -20,21 +20,22 @@
 #' [fredr_series_vintagedates()].
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # Return the categories to which the "UNRATE" series belongs
 #' fredr_series_categories(series_id = "UNRATE")
 #' }
 #' @export
-fredr_series_categories <- function(series_id = NULL,
+fredr_series_categories <- function(series_id,
+                                    ...,
                                     realtime_start = NULL,
                                     realtime_end = NULL) {
-
-  validate_series_id(series_id)
+  check_dots_empty(...)
+  check_not_null(series_id, "series_id")
 
   user_args <- capture_args(
-    series_id,
-    realtime_start,
-    realtime_end
+    series_id = series_id,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end
   )
 
   fredr_args <- list(
@@ -42,5 +43,4 @@ fredr_series_categories <- function(series_id = NULL,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }

@@ -46,7 +46,7 @@
 #'
 #' @section API Documentation:
 #'
-#' [fred/tags](https://research.stlouisfed.org/docs/api/fred/tags.html)
+#' [fred/tags](https://fred.stlouisfed.org/docs/api/fred/tags.html)
 #'
 #' @seealso [fredr_category_tags()], [fredr_category_related_tags()], [fredr_docs()],
 #' [fredr_release_tags()], [fredr_release_related_tags()],
@@ -54,18 +54,22 @@
 #' [fredr_tags_series()], [fredr_related_tags()]
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key() && interactive()) {
 #' # Information for all tags
 #' fredr_tags()
+#'
 #' # Information for just the "gdp" and "oecd" tags
 #' fredr_tags(tag_names = "gdp;oecd")
+#'
 #' # Information for all tags in the "geo" group
 #' fredr_tags(tag_group_id = "geo")
+#'
 #' # Information for tags matching the text "unemployment"
 #' fredr_tags(search_text = "unemployment")
 #' }
 #' @export
-fredr_tags <- function(tag_names = NULL,
+fredr_tags <- function(...,
+                       tag_names = NULL,
                        tag_group_id = NULL,
                        search_text = NULL,
                        limit = NULL,
@@ -74,17 +78,18 @@ fredr_tags <- function(tag_names = NULL,
                        sort_order = NULL,
                        realtime_start = NULL,
                        realtime_end = NULL) {
+  check_dots_empty(...)
 
   user_args <- capture_args(
-    realtime_start,
-    realtime_end,
-    tag_names,
-    tag_group_id,
-    search_text,
-    limit,
-    offset,
-    order_by,
-    sort_order
+    realtime_start = realtime_start,
+    realtime_end = realtime_end,
+    tag_names = tag_names,
+    tag_group_id = tag_group_id,
+    search_text = search_text,
+    limit = limit,
+    offset = offset,
+    order_by = order_by,
+    sort_order = sort_order
   )
 
   fredr_args <- list(
@@ -92,5 +97,4 @@ fredr_tags <- function(tag_names = NULL,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }

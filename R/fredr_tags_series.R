@@ -6,7 +6,7 @@
 #' @inheritParams fredr_related_tags
 #'
 #' @param tag_names A semicolon delimited string of tag names to
-#' find series using. _Required parameter._
+#' find series using.
 #'
 #' @param order_by A string indicating which attribute by which to order the
 #' results of the query.  Possible values include:
@@ -29,7 +29,7 @@
 #'
 #' @section API Documentation:
 #'
-#' [fred/tags/series](https://research.stlouisfed.org/docs/api/fred/tags_series.html)
+#' [fred/tags/series](https://fred.stlouisfed.org/docs/api/fred/tags_series.html)
 #'
 #' @seealso [fredr_category_tags()], [fredr_category_related_tags()], [fredr_docs()],
 #' [fredr_release_tags()], [fredr_release_related_tags()],
@@ -38,7 +38,7 @@
 #'
 #' @examples
 #'
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # All series tagged with "gdp"
 #' fredr_tags_series(tag_names = "gdp")
 #' # All series tagged with "gdp" and not tagged with "quarterly"
@@ -55,7 +55,8 @@
 #' )
 #' }
 #' @export
-fredr_tags_series <- function(tag_names = NULL,
+fredr_tags_series <- function(tag_names,
+                              ...,
                               exclude_tag_names = NULL,
                               limit = NULL,
                               offset = NULL,
@@ -63,16 +64,18 @@ fredr_tags_series <- function(tag_names = NULL,
                               sort_order = NULL,
                               realtime_start = NULL,
                               realtime_end = NULL) {
+  check_dots_empty(...)
+  check_not_null(tag_names, "tag_names")
 
   user_args <- capture_args(
-    tag_names,
-    exclude_tag_names,
-    realtime_start,
-    realtime_end,
-    limit,
-    offset,
-    order_by,
-    sort_order
+    tag_names = tag_names,
+    exclude_tag_names = exclude_tag_names,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end,
+    limit = limit,
+    offset = offset,
+    order_by = order_by,
+    sort_order = sort_order
   )
 
   fredr_args <- list(
@@ -80,5 +83,4 @@ fredr_tags_series <- function(tag_names = NULL,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }

@@ -4,18 +4,20 @@
 \alias{fredr_source}
 \title{Get a source of economic data}
 \usage{
-fredr_source(source_id = NULL, realtime_start = NULL, realtime_end = NULL)
+fredr_source(source_id, ..., realtime_start = NULL, realtime_end = NULL)
 }
 \arguments{
-\item{source_id}{An integer ID for the data source.  \emph{Required parameter}.}
+\item{source_id}{An integer ID for the data source.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -26,11 +28,11 @@ Get a source of economic data
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/source.html}{fred/source}
+\href{https://fred.stlouisfed.org/docs/api/fred/source.html}{fred/source}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 fredr_source(source_id = 14L)
 
 # Has this source ID ever changed over time?

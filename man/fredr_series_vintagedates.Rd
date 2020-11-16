@@ -4,11 +4,20 @@
 \alias{fredr_series_vintagedates}
 \title{Get the data vintage dates for a FRED series}
 \usage{
-fredr_series_vintagedates(series_id = NULL, limit = NULL, offset = NULL,
-  sort_order = NULL, realtime_start = NULL, realtime_end = NULL)
+fredr_series_vintagedates(
+  series_id,
+  ...,
+  limit = NULL,
+  offset = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{series_id}{A string ID for the FRED series. \emph{Required parameter.}}
+\item{series_id}{A string ID for the FRED series.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{limit}{An integer limit on the maximum number of results to return.
 Defaults to \code{1000}, the maximum.}
@@ -22,11 +31,11 @@ Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object where each row is a distinct vintage date.
@@ -38,11 +47,11 @@ data values were revised or new data values were released as a \code{tibble} obj
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/series_vintagedates.html}{fred/series/vintagedates}
+\href{https://fred.stlouisfed.org/docs/api/fred/series_vintagedates.html}{fred/series/vintagedates}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # All data vintages for the "UNRATE" series
 fredr_series_vintagedates(series_id = "UNRATE")
 # 10 most recent data vintages for the "UNRATE" series

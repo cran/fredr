@@ -4,11 +4,10 @@
 \alias{fredr_category}
 \title{Get a FRED category}
 \usage{
-fredr_category(category_id = 0L)
+fredr_category(category_id)
 }
 \arguments{
-\item{category_id}{An integer ID for the category.  Default is \code{0} for the
-root category. \emph{Required parameter.}}
+\item{category_id}{An integer ID for the category.}
 }
 \value{
 A \code{tibble} object containing the name and parent ID for the category
@@ -20,13 +19,13 @@ Get a FRED category
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/category.html}{fred/category}
+\href{https://fred.stlouisfed.org/docs/api/fred/category.html}{fred/category}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Root category
-fredr_category()
+fredr_category(category_id = 0L)
 # "Production & Business Activity" category
 fredr_category(category_id = 1L)
 }

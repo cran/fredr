@@ -4,18 +4,20 @@
 \alias{fredr_series}
 \title{Return basic information for a FRED series.}
 \usage{
-fredr_series(series_id = NULL, realtime_start = NULL, realtime_end = NULL)
+fredr_series(series_id, ..., realtime_start = NULL, realtime_end = NULL)
 }
 \arguments{
-\item{series_id}{A string ID for the FRED series. \emph{Required parameter.}}
+\item{series_id}{A string ID for the FRED series.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object (1 row) with information for the series specified by
@@ -29,11 +31,11 @@ see \code{\link[=fredr_series_observations]{fredr_series_observations()}}.
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/series.html}{fred/series}
+\href{https://fred.stlouisfed.org/docs/api/fred/series.html}{fred/series}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Return information for the "UNRATE" series
 fredr_series(series_id = "UNRATE")
 }

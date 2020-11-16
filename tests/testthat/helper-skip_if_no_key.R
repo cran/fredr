@@ -1,6 +1,6 @@
 skip_if_no_key <- function() {
-  testthat::skip_if(
-    condition = identical(Sys.getenv("FRED_API_KEY"), ""),
+  skip_if(
+    condition = !fredr_has_key(),
     message = "FRED API key is not set."
   )
 }

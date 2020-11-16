@@ -4,16 +4,27 @@
 \alias{fredr_release_related_tags}
 \title{Get the related FRED tags for one or more FRED tags within a release}
 \usage{
-fredr_release_related_tags(release_id = NULL, tag_names = NULL,
-  exclude_tag_names = NULL, tag_group_id = NULL, search_text = NULL,
-  limit = NULL, offset = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_release_related_tags(
+  release_id,
+  tag_names,
+  ...,
+  exclude_tag_names = NULL,
+  tag_group_id = NULL,
+  search_text = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{release_id}{An integer ID of the release. \emph{Required parameter.}}
+\item{release_id}{An integer ID of the release.}
 
-\item{tag_names}{A semicolon delimited string of tag names to be related to.
-\emph{Required parameter.}}
+\item{tag_names}{A semicolon delimited string of tag names to be related to.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{exclude_tag_names}{A semicolon delimited string of tag names that series
 match \emph{none} of. No exclusions are done by default.}
@@ -56,11 +67,11 @@ are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -74,11 +85,11 @@ release set by the \code{release_id} parameter.
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/release_related_tags.html}{fred/release/related_tags}
+\href{https://fred.stlouisfed.org/docs/api/fred/release_related_tags.html}{fred/release/related_tags}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 fredr_release_related_tags(10, tag_names = "cpi")
 }
 }

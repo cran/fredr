@@ -4,11 +4,22 @@
 \alias{fredr_tags}
 \title{Get FRED series tags}
 \usage{
-fredr_tags(tag_names = NULL, tag_group_id = NULL, search_text = NULL,
-  limit = NULL, offset = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_tags(
+  ...,
+  tag_names = NULL,
+  tag_group_id = NULL,
+  search_text = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
+\item{...}{These dots only exist for future extensions and should be empty.}
+
 \item{tag_names}{A semicolon delimited string of tag names to only
 include in the response. No filtering by tag names by default (i.e. \emph{all}
 FRED tags returned).}
@@ -51,11 +62,11 @@ are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} containing tags and their descriptions.  Data include tag
@@ -70,17 +81,20 @@ all tags are returned, unfiltered, up to the \code{limit}.
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/tags.html}{fred/tags}
+\href{https://fred.stlouisfed.org/docs/api/fred/tags.html}{fred/tags}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key() && interactive()) {
 # Information for all tags
 fredr_tags()
+
 # Information for just the "gdp" and "oecd" tags
 fredr_tags(tag_names = "gdp;oecd")
+
 # Information for all tags in the "geo" group
 fredr_tags(tag_group_id = "geo")
+
 # Information for tags matching the text "unemployment"
 fredr_tags(search_text = "unemployment")
 }

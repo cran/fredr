@@ -14,7 +14,7 @@
 #'
 #' @section API Documentation:
 #'
-#' [fred/series/tags](https://research.stlouisfed.org/docs/api/fred/series_tags.html)
+#' [fred/series/tags](https://fred.stlouisfed.org/docs/api/fred/series_tags.html)
 #'
 #' @seealso [fredr_series_observations()], [fredr_series_search_text()],
 #' [fredr_series_search_id()], [fredr_series_search_tags()],
@@ -23,26 +23,27 @@
 #' [fredr_series_vintagedates()].
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # Return all tags assigned to the "UNRATE" series and order the results by
 #' # group ID.
 #' fredr_series_tags(series_id = "UNRATE", order_by = "group_id")
 #' }
 #' @export
-fredr_series_tags <- function(series_id = NULL,
+fredr_series_tags <- function(series_id,
+                              ...,
                               order_by = NULL,
                               sort_order = NULL,
                               realtime_start = NULL,
                               realtime_end = NULL) {
-
-  validate_series_id(series_id)
+  check_dots_empty(...)
+  check_not_null(series_id, "series_id")
 
   user_args <- capture_args(
-    series_id,
-    order_by,
-    sort_order,
-    realtime_start,
-    realtime_end
+    series_id = series_id,
+    order_by = order_by,
+    sort_order = sort_order,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end
   )
 
   fredr_args <- list(
@@ -50,5 +51,4 @@ fredr_series_tags <- function(series_id = NULL,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }

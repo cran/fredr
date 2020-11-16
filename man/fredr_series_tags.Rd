@@ -4,11 +4,19 @@
 \alias{fredr_series_tags}
 \title{Get the tags for a FRED series}
 \usage{
-fredr_series_tags(series_id = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_series_tags(
+  series_id,
+  ...,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{series_id}{A string ID for the FRED series. \emph{Required parameter.}}
+\item{series_id}{A string ID for the FRED series.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{order_by}{A string indicating the attribute by which to order the
 Possible values include \code{"series_count"} (default), \code{"popularity"},
@@ -19,14 +27,14 @@ Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
-A \code{tibble`` object where each row is represents a tag associated with the series specified by}series_id`.  Data include tag name, group ID,
+A \verb{tibble`` object where each row is represents a tag associated with the series specified by }series_id`.  Data include tag name, group ID,
 popularity, series count, tag creation date, and additional notes.
 }
 \description{
@@ -35,11 +43,11 @@ Given a series ID, return associated tags for the series as a \code{tibble} obje
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/series_tags.html}{fred/series/tags}
+\href{https://fred.stlouisfed.org/docs/api/fred/series_tags.html}{fred/series/tags}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Return all tags assigned to the "UNRATE" series and order the results by
 # group ID.
 fredr_series_tags(series_id = "UNRATE", order_by = "group_id")

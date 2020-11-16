@@ -4,19 +4,25 @@
 \alias{fredr_series_release}
 \title{Get the release for a FRED series}
 \usage{
-fredr_series_release(series_id = NULL, realtime_start = NULL,
-  realtime_end = NULL)
+fredr_series_release(
+  series_id,
+  ...,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{series_id}{A string ID for the FRED series. \emph{Required parameter.}}
+\item{series_id}{A string ID for the FRED series.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object with information on the release for the series specified
@@ -29,11 +35,11 @@ Given a series ID, return information on a series as a \code{tibble} object.
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/series_release.html}{fred/series/release}
+\href{https://fred.stlouisfed.org/docs/api/fred/series_release.html}{fred/series/release}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Get release information for the "UNRATE" series
 fredr_series_release(series_id = "UNRATE")
 }

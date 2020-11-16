@@ -1,3 +1,26 @@
+# fredr 2.0.0
+
+* fredr has been un-orphaned!
+
+* If the FRED rate limit is hit, all fredr functions will now wait an
+  appropriate amount of time before automatically attempting to make the
+  request again. The rate limit seems to be 120 requests per minute, so
+  fredr functions will wait 20 seconds between failed attempts, with a
+  maximum of 6 failed attempts. This should be plenty of time for the rate
+  limit to reset.
+
+* Required arguments no longer have a default of `NULL`. This should make it
+  easier to visually distinguish between required and optional arguments.
+  Additionally, `...` have been added between the required and optional
+  arguments of every function to force naming of optional arguments.
+
+* All requests to the FRED API are now retried a maximum of 3 times on failure.
+  The low level function, `fredr_request()`, has gained a `retry_times` argument
+  if you need to change this on a case-by-case basis.
+
+* There are two new functions related to the API key, `fredr_set_key()` and
+  `fredr_has_key()`. These are mainly for internal usage.
+
 # fredr 1.0.0
 
 Initial release for CRAN.  All endpoint functions for the FRED API are now 

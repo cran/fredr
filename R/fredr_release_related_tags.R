@@ -5,7 +5,7 @@
 #' parameter, no tags in the `exclude_tag_names` parameter, and the
 #' release set by the `release_id` parameter.
 #'
-#' @param release_id An integer ID of the release. _Required parameter._
+#' @param release_id An integer ID of the release.
 #'
 #' @inheritParams fredr_related_tags
 #'
@@ -13,19 +13,20 @@
 #'
 #' @section API Documentation:
 #'
-#' [fred/release/related_tags](https://research.stlouisfed.org/docs/api/fred/release_related_tags.html)
+#' [fred/release/related_tags](https://fred.stlouisfed.org/docs/api/fred/release_related_tags.html)
 #'
 #' @seealso [fredr_releases()],  [fredr_releases_dates()], [fredr_release()],
 #' [fredr_release_dates()], [fredr_release_series()], [fredr_release_sources()],
 #' [fredr_release_tags()], [fredr_release_tables()]
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' fredr_release_related_tags(10, tag_names = "cpi")
 #' }
 #' @export
-fredr_release_related_tags <- function(release_id = NULL,
-                                       tag_names = NULL,
+fredr_release_related_tags <- function(release_id,
+                                       tag_names,
+                                       ...,
                                        exclude_tag_names = NULL,
                                        tag_group_id = NULL,
                                        search_text = NULL,
@@ -35,23 +36,22 @@ fredr_release_related_tags <- function(release_id = NULL,
                                        sort_order = NULL,
                                        realtime_start = NULL,
                                        realtime_end = NULL) {
-
-  validate_release_id(release_id)
-
-  validate_required_string_param(tag_names)
+  check_dots_empty(...)
+  check_not_null(release_id, "release_id")
+  check_not_null(tag_names, "tag_names")
 
   user_args <- capture_args(
-    release_id,
-    tag_names,
-    exclude_tag_names,
-    tag_group_id,
-    search_text,
-    limit,
-    offset,
-    order_by,
-    sort_order,
-    realtime_start,
-    realtime_end
+    release_id = release_id,
+    tag_names = tag_names,
+    exclude_tag_names = exclude_tag_names,
+    tag_group_id = tag_group_id,
+    search_text = search_text,
+    limit = limit,
+    offset = offset,
+    order_by = order_by,
+    sort_order = sort_order,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end
   )
 
   fredr_args <- list(

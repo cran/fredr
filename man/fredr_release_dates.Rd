@@ -4,12 +4,21 @@
 \alias{fredr_release_dates}
 \title{Get release dates for a single release of economic data}
 \usage{
-fredr_release_dates(release_id = NULL, limit = NULL, offset = NULL,
-  sort_order = NULL, include_release_dates_with_no_data = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_release_dates(
+  release_id,
+  ...,
+  limit = NULL,
+  offset = NULL,
+  sort_order = NULL,
+  include_release_dates_with_no_data = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{release_id}{An integer ID of the release. \emph{Required parameter.}}
+\item{release_id}{An integer ID of the release.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{limit}{An integer limit on the maximum number of results to return.
 Defaults to \code{10000}, the maximum.}
@@ -27,11 +36,11 @@ Default is \code{FALSE}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to \code{1776-07-04} (earliest available). For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to \code{9999-12-31} (latest available). For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -42,11 +51,11 @@ Get release dates for a single release of economic data
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/release_dates.html}{fred/release/dates}
+\href{https://fred.stlouisfed.org/docs/api/fred/release_dates.html}{fred/release/dates}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 fredr_release_dates(release_id = 20L)
 
 # Call the function with an "as of" Date of 1997-03-14

@@ -4,14 +4,24 @@
 \alias{fredr_series_search_tags}
 \title{Get the FRED tags for a series search.}
 \usage{
-fredr_series_search_tags(series_search_text = NULL, tag_names = NULL,
-  tag_group_id = NULL, tag_search_text = NULL, limit = NULL,
-  offset = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_series_search_tags(
+  series_search_text,
+  ...,
+  tag_names = NULL,
+  tag_group_id = NULL,
+  tag_search_text = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{series_search_text}{A string containing the series search text.
-\emph{Required parameter.}}
+\item{series_search_text}{A string containing the series search text.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{tag_names}{A semicolon delimited string of tag names to return.  Defaults
 no filtering by tag names.}
@@ -53,11 +63,11 @@ Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object where each row represents a series tag matching the
@@ -68,7 +78,7 @@ series count, and additional notes.
 Return the FRED tags by searching for matches in series text.
 }
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Search for tags matching the series text "gnp"
 fredr_series_search_tags("gnp")
 # Search for tags matching the series text "oil" and the tag text "usa"
@@ -88,7 +98,7 @@ fredr_series_search_tags(
 \references{
 API Documentation:
 
-\href{https://research.stlouisfed.org/docs/api/fred/series_search_tags.html}{series/search/tags}
+\href{https://fred.stlouisfed.org/docs/api/fred/series_search_tags.html}{series/search/tags}
 }
 \seealso{
 \code{\link[=fredr_series_search_text]{fredr_series_search_text()}}, \code{\link[=fredr_series_search_id]{fredr_series_search_id()}}, \code{\link[=fredr_series_search_related_tags]{fredr_series_search_related_tags()}}, \code{\link[=fredr_tags]{fredr_tags()}}

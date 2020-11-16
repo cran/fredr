@@ -5,19 +5,44 @@
 \alias{fredr}
 \title{Get observations of a FRED series}
 \usage{
-fredr_series_observations(series_id = NULL, observation_start = NULL,
-  observation_end = NULL, frequency = NULL, aggregation_method = NULL,
-  limit = NULL, offset = NULL, sort_order = NULL, units = NULL,
-  realtime_start = NULL, realtime_end = NULL, vintage_dates = NULL,
-  output_type = NULL)
+fredr_series_observations(
+  series_id,
+  ...,
+  observation_start = NULL,
+  observation_end = NULL,
+  frequency = NULL,
+  aggregation_method = NULL,
+  limit = NULL,
+  offset = NULL,
+  sort_order = NULL,
+  units = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL,
+  vintage_dates = NULL,
+  output_type = NULL
+)
 
-fredr(series_id = NULL, observation_start = NULL, observation_end = NULL,
-  frequency = NULL, aggregation_method = NULL, limit = NULL,
-  offset = NULL, sort_order = NULL, units = NULL, realtime_start = NULL,
-  realtime_end = NULL, vintage_dates = NULL, output_type = NULL)
+fredr(
+  series_id,
+  ...,
+  observation_start = NULL,
+  observation_end = NULL,
+  frequency = NULL,
+  aggregation_method = NULL,
+  limit = NULL,
+  offset = NULL,
+  sort_order = NULL,
+  units = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL,
+  vintage_dates = NULL,
+  output_type = NULL
+)
 }
 \arguments{
-\item{series_id}{A string ID for the FRED series. \emph{Required parameter.}}
+\item{series_id}{A string ID for the FRED series.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{observation_start}{A \code{Date} indicating the start of the observation period.
 Defaults to \code{1776-07-04}, the earliest available date.}
@@ -81,11 +106,11 @@ Defaults to \code{"lin"}. Possible values are:
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{vintage_dates}{A vector of \code{Date} objects to download data for.
 Vintage dates are used to download data as it existed on these specified
@@ -111,18 +136,18 @@ Given a series ID, return observations of that series as a \code{tibble} object.
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/series_observations.html}{fred/series/observations}
+\href{https://fred.stlouisfed.org/docs/api/fred/series_observations.html}{fred/series/observations}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Observations for "UNRATE" series between 1980 and 2000.  Units are in terms
-# of change from pervious observation.
+# of change from previous observation.
 fredr(
   series_id = "UNRATE",
   observation_start = as.Date("1980-01-01"),
   observation_end = as.Date("2000-01-01"),
-  unit = "chg"
+  units = "chg"
 )
 # All observations for "OILPRICE" series.  The data is first aggregated by
 # quarter by taking the average of all observations in the quarter then
@@ -131,7 +156,7 @@ fredr(
   series_id = "OILPRICE",
   frequency = "q",
   aggregation_method = "avg",
-  unit = "log"
+  units = "log"
 )
 
 # To retrieve values for multiple series, use purrr's map_dfr() function.

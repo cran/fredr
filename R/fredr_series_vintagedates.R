@@ -12,7 +12,7 @@
 #'
 #' @section API Documentation:
 #'
-#' [fred/series/vintagedates](https://research.stlouisfed.org/docs/api/fred/series_vintagedates.html)
+#' [fred/series/vintagedates](https://fred.stlouisfed.org/docs/api/fred/series_vintagedates.html)
 #'
 #' @seealso [fredr_series_observations()], [fredr_series_search_text()],
 #' [fredr_series_search_id()], [fredr_series_search_tags()],
@@ -21,29 +21,30 @@
 #' [fredr_series_updates()].
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # All data vintages for the "UNRATE" series
 #' fredr_series_vintagedates(series_id = "UNRATE")
 #' # 10 most recent data vintages for the "UNRATE" series
 #' fredr_series_vintagedates(series_id = "UNRATE", limit = 10L, sort_order = "desc")
 #' }
 #' @export
-fredr_series_vintagedates <- function(series_id = NULL,
+fredr_series_vintagedates <- function(series_id,
+                                      ...,
                                       limit = NULL,
                                       offset = NULL,
                                       sort_order = NULL,
                                       realtime_start = NULL,
                                       realtime_end = NULL) {
-
-  validate_series_id(series_id)
+  check_dots_empty(...)
+  check_not_null(series_id, "series_id")
 
   user_args <- capture_args(
-    series_id,
-    limit,
-    offset,
-    sort_order,
-    realtime_start,
-    realtime_end
+    series_id = series_id,
+    limit = limit,
+    offset = offset,
+    sort_order = sort_order,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end
   )
 
   fredr_args <- list(
@@ -51,6 +52,5 @@ fredr_series_vintagedates <- function(series_id = NULL,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }
 

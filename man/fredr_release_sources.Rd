@@ -4,19 +4,25 @@
 \alias{fredr_release_sources}
 \title{Get the sources for a release of economic data}
 \usage{
-fredr_release_sources(release_id = NULL, realtime_start = NULL,
-  realtime_end = NULL)
+fredr_release_sources(
+  release_id,
+  ...,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{release_id}{An integer ID of the release. \emph{Required parameter.}}
+\item{release_id}{An integer ID of the release.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -27,11 +33,11 @@ Get the sources for a release of economic data
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/release_sources.html}{fred/release/sources}
+\href{https://fred.stlouisfed.org/docs/api/fred/release_sources.html}{fred/release/sources}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Where does the data for ID 10 come from?
 fredr_release_sources(release_id = 10L)
 }

@@ -4,13 +4,23 @@
 \alias{fredr_tags_series}
 \title{Find FRED series matching tag names}
 \usage{
-fredr_tags_series(tag_names = NULL, exclude_tag_names = NULL,
-  limit = NULL, offset = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_tags_series(
+  tag_names,
+  ...,
+  exclude_tag_names = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
 \item{tag_names}{A semicolon delimited string of tag names to
-find series using. \emph{Required parameter.}}
+find series using.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{exclude_tag_names}{A semicolon delimited string of tag names that series
 match \emph{none} of. No exclusions are done by default.}
@@ -45,11 +55,11 @@ are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object containing FRED series with tags matching \code{tag_names}
@@ -62,12 +72,12 @@ Get the series matching tags in the \code{tag_names} parameter. Exclude tags in 
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/tags_series.html}{fred/tags/series}
+\href{https://fred.stlouisfed.org/docs/api/fred/tags_series.html}{fred/tags/series}
 }
 
 \examples{
 
-\donttest{
+if (fredr_has_key()) {
 # All series tagged with "gdp"
 fredr_tags_series(tag_names = "gdp")
 # All series tagged with "gdp" and not tagged with "quarterly"

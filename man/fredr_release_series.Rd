@@ -4,13 +4,25 @@
 \alias{fredr_release_series}
 \title{Get the series on a release of economic data}
 \usage{
-fredr_release_series(release_id = NULL, filter_variable = NULL,
-  filter_value = NULL, tag_names = NULL, exclude_tag_names = NULL,
-  limit = NULL, offset = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_release_series(
+  release_id,
+  ...,
+  filter_variable = NULL,
+  filter_value = NULL,
+  tag_names = NULL,
+  exclude_tag_names = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{release_id}{An integer ID of the release. \emph{Required parameter.}}
+\item{release_id}{An integer ID of the release.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{filter_variable}{A string indicating which attribute to indicate the
 attribute that results are filtered by.  Possible values include: \code{"frequency"},
@@ -56,11 +68,11 @@ Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -71,11 +83,11 @@ Get the series on a release of economic data
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/release_series.html}{fred/release/series}
+\href{https://fred.stlouisfed.org/docs/api/fred/release_series.html}{fred/release/series}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 fredr_release_series(release_id = 20L)
 
 fredr_release_series(release_id = 20L, order_by = "popularity")

@@ -4,20 +4,26 @@
 \alias{fredr_category_related}
 \title{Get the related categories for a FRED category.}
 \usage{
-fredr_category_related(category_id = 0L, realtime_start = NULL,
-  realtime_end = NULL)
+fredr_category_related(
+  category_id,
+  ...,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
 \item{category_id}{An integer ID for the category.  Default is \code{0} for the
 root category. \emph{Required parameter.}}
 
+\item{...}{These dots only exist for future extensions and should be empty.}
+
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object containing the name and parent ID for categories
@@ -27,7 +33,7 @@ related to the category indicated by \code{category_id}.
 Get the related categories for a FRED category.
 }
 \details{
-From the \href{https://research.stlouisfed.org/docs/api/fred/category_related.html}{FRED API documentation}:
+From the \href{https://fred.stlouisfed.org/docs/api/fred/category_related.html}{FRED API documentation}:
 "A related category is a one-way relation between 2 categories that is not
 part of a parent-child category hierarchy. Most categories do not have related
 categories."
@@ -35,11 +41,11 @@ categories."
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/category_related.html}{fred/category/related}
+\href{https://fred.stlouisfed.org/docs/api/fred/category_related.html}{fred/category/related}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Categories related to the "Employment Cost Index" category
 fredr_category_related(category_id = 4L)
 }

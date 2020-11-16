@@ -4,12 +4,21 @@
 \alias{fredr_source_releases}
 \title{Get the releases for a source}
 \usage{
-fredr_source_releases(source_id = NULL, limit = NULL, offset = NULL,
-  order_by = NULL, sort_order = NULL, realtime_start = NULL,
-  realtime_end = NULL)
+fredr_source_releases(
+  source_id,
+  ...,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{source_id}{An integer ID for the data source.  \emph{Required parameter}.}
+\item{source_id}{An integer ID for the data source.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{limit}{An integer limit on the maximum number of results to return.
 Defaults to \code{1000}, the maximum.}
@@ -33,11 +42,11 @@ Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object.
@@ -48,11 +57,11 @@ Get the releases for a source
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/source_releases.html}{fred/source/releases}
+\href{https://fred.stlouisfed.org/docs/api/fred/source_releases.html}{fred/source/releases}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Board of Governors
 fredr_source_releases(source_id = 1L)
 

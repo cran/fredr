@@ -2,11 +2,11 @@
 #'
 #' @param realtime_start A `Date` indicating the start of the real-time period.
 #' Defaults to today's date. For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
 #'
 #' @param realtime_end A `Date` indicating the end of the real-time period.
 #' Defaults to today's date. For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
 #'
 #' @param limit An integer limit on the maximum number of results to return.
 #' Defaults to `1000`, the maximum.
@@ -22,35 +22,39 @@
 #' Possible values include: `'release_id'` (default), `'name'`, `'press_release'`,
 #' `'realtime_start'`, `'realtime_end'`.
 #'
+#' @param ... These dots only exist for future extensions and should be empty.
+#'
 #' @return A `tibble` object.
 #'
 #' @section API Documentation:
 #'
-#' [fred/releases](https://research.stlouisfed.org/docs/api/fred/releases.html)
+#' [fred/releases](https://fred.stlouisfed.org/docs/api/fred/releases.html)
 #'
 #' @seealso [fredr_releases_dates()], [fredr_release()], [fredr_release_dates()],
 #' [fredr_release_series()], [fredr_release_sources()], [fredr_release_tags()],
 #' [fredr_release_related_tags()], [fredr_release_tables()],
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' fredr_releases(limit = 20L)
 #' }
 #' @export
-fredr_releases <- function(limit = NULL,
+fredr_releases <- function(...,
+                           limit = NULL,
                            offset = NULL,
                            order_by = NULL,
                            sort_order = NULL,
                            realtime_start = NULL,
                            realtime_end = NULL) {
+  check_dots_empty(...)
 
   user_args <- capture_args(
-    limit,
-    offset,
-    order_by,
-    sort_order,
-    realtime_start,
-    realtime_end
+    limit = limit,
+    offset = offset,
+    order_by = order_by,
+    sort_order = sort_order,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end
   )
 
   fredr_args <- list(
@@ -58,5 +62,4 @@ fredr_releases <- function(limit = NULL,
   )
 
   do.call(fredr_request, c(fredr_args, user_args))
-
 }

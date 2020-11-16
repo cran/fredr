@@ -4,14 +4,25 @@
 \alias{fredr_category_series}
 \title{Get the series in a category}
 \usage{
-fredr_category_series(category_id = 0L, filter_variable = NULL,
-  filter_value = NULL, tag_names = NULL, exclude_tag_names = NULL,
-  limit = NULL, offset = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_category_series(
+  category_id,
+  ...,
+  filter_variable = NULL,
+  filter_value = NULL,
+  tag_names = NULL,
+  exclude_tag_names = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 }
 \arguments{
-\item{category_id}{An integer ID for the category.  Default is \code{0} for the
-root category. \emph{Required parameter.}}
+\item{category_id}{An integer ID for the category.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{filter_variable}{A string indicating which attribute to indicate the
 attribute that results are filtered by.  Possible values include: \code{"frequency"},
@@ -22,7 +33,7 @@ attribute to filter results by.  \code{filter_variable} must be set.  No filteri
 by default.}
 
 \item{tag_names}{A string indicating which series tags to match.  Multiple
-tags can be delimited by a semicolon in a single string (e.g. `"usa;gnp"``).}
+tags can be delimited by a semicolon in a single string (e.g. \code{"usa;gnp"}).}
 
 \item{exclude_tag_names}{A string indicating which series tags should \emph{not}
 be matched.  Multiple tags can be delimited by a semicolon in a single string
@@ -58,11 +69,11 @@ Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object with information for series matching the request for
@@ -74,11 +85,11 @@ Get the series in a category
 \section{API Documentation}{
 
 
-\href{https://research.stlouisfed.org/docs/api/fred/category_series.html}{fred/category/series}
+\href{https://fred.stlouisfed.org/docs/api/fred/category_series.html}{fred/category/series}
 }
 
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # Top 10 most popular series belonging to the "Employment Cost Index" category
 fredr_category_series(category_id = 1L, limit = 10L, order_by = "popularity")
 # Series in the "Employment Cost Index" category, ordered by descending observation frequency

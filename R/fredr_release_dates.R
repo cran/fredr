@@ -1,14 +1,14 @@
 #' Get release dates for a single release of economic data
 #'
-#' @param release_id An integer ID of the release. _Required parameter._
+#' @param release_id An integer ID of the release.
 #'
 #' @param realtime_start A `Date` indicating the start of the real-time period.
 #' Defaults to `1776-07-04` (earliest available). For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
 #'
 #' @param realtime_end A `Date` indicating the end of the real-time period.
 #' Defaults to `9999-12-31` (latest available). For more information, see
-#' [Real-Time Periods](https://research.stlouisfed.org/docs/api/fred/realtime_period.html).
+#' [Real-Time Periods](https://fred.stlouisfed.org/docs/api/fred/realtime_period.html).
 #'
 #' @param limit An integer limit on the maximum number of results to return.
 #' Defaults to `10000`, the maximum.
@@ -24,42 +24,45 @@
 #' results with no data available should be returned as well.
 #' Default is `FALSE`.
 #'
+#' @param ... These dots only exist for future extensions and should be empty.
+#'
 #' @return A `tibble` object.
 #'
 #' @section API Documentation:
 #'
-#' [fred/release/dates](https://research.stlouisfed.org/docs/api/fred/release_dates.html)
+#' [fred/release/dates](https://fred.stlouisfed.org/docs/api/fred/release_dates.html)
 #'
 #' @seealso [fredr_releases()], [fredr_releases_dates()], [fredr_release()],
 #' [fredr_release_series()], [fredr_release_sources()], [fredr_release_tags()],
 #' [fredr_release_related_tags()], [fredr_release_tables()]
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' fredr_release_dates(release_id = 20L)
 #'
 #' # Call the function with an "as of" Date of 1997-03-14
 #' fredr_release_dates(release_id = 20L, realtime_end = as.Date("1997-03-14"))
 #' }
 #' @export
-fredr_release_dates <- function(release_id = NULL,
+fredr_release_dates <- function(release_id,
+                                ...,
                                 limit = NULL,
                                 offset = NULL,
                                 sort_order = NULL,
                                 include_release_dates_with_no_data = NULL,
                                 realtime_start = NULL,
                                 realtime_end = NULL) {
-
-  validate_release_id(release_id)
+  check_dots_empty(...)
+  check_not_null(release_id, "release_id")
 
   user_args <- capture_args(
-    release_id,
-    limit,
-    offset,
-    sort_order,
-    include_release_dates_with_no_data,
-    realtime_start,
-    realtime_end
+    release_id = release_id,
+    limit = limit,
+    offset = offset,
+    sort_order = sort_order,
+    include_release_dates_with_no_data = include_release_dates_with_no_data,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end
   )
 
   fredr_args <- list(

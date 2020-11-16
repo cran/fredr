@@ -5,20 +5,42 @@
 \alias{fredr_series_search_id}
 \title{Search for a FRED series.}
 \usage{
-fredr_series_search_text(search_text = NULL, tag_names = NULL,
-  exclude_tag_names = NULL, filter_variable = NULL, filter_value = NULL,
-  limit = NULL, offset = NULL, order_by = NULL, sort_order = NULL,
-  realtime_start = NULL, realtime_end = NULL)
+fredr_series_search_text(
+  search_text,
+  ...,
+  tag_names = NULL,
+  exclude_tag_names = NULL,
+  filter_variable = NULL,
+  filter_value = NULL,
+  limit = NULL,
+  offset = NULL,
+  order_by = NULL,
+  sort_order = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL
+)
 
-fredr_series_search_id(search_text = NULL, limit = 1000L, offset = 0,
-  order_by = NULL, sort_order = "asc", filter_variable = NULL,
-  filter_value = NULL, realtime_start = NULL, realtime_end = NULL,
-  tag_names = NULL, exclude_tag_names = NULL)
+fredr_series_search_id(
+  search_text,
+  ...,
+  limit = 1000L,
+  offset = 0,
+  order_by = NULL,
+  sort_order = "asc",
+  filter_variable = NULL,
+  filter_value = NULL,
+  realtime_start = NULL,
+  realtime_end = NULL,
+  tag_names = NULL,
+  exclude_tag_names = NULL
+)
 }
 \arguments{
 \item{search_text}{A string containing the words to match against economic
 data series. For use with \code{\link{fredr_series_search_text}} and
-\code{\link{fredr_series_search_id}}.  \emph{Required parameter.}}
+\code{\link{fredr_series_search_id}}.}
+
+\item{...}{These dots only exist for future extensions and should be empty.}
 
 \item{tag_names}{A semicolon delimited string of tag names that series match \emph{all} of.  Defaults to no tag filtering.}
 
@@ -64,11 +86,11 @@ Possible values are: \code{"asc"} (default), and \code{"desc"}.}
 
 \item{realtime_start}{A \code{Date} indicating the start of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 
 \item{realtime_end}{A \code{Date} indicating the end of the real-time period.
 Defaults to today's date. For more information, see
-\href{https://research.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
+\href{https://fred.stlouisfed.org/docs/api/fred/realtime_period.html}{Real-Time Periods}.}
 }
 \value{
 A \code{tibble} object where each row represents a series matching the query.
@@ -77,7 +99,7 @@ A \code{tibble} object where each row represents a series matching the query.
 Search FRED for a series by full text of series or by series ID.
 }
 \examples{
-\donttest{
+if (fredr_has_key()) {
 # search for series with text matching "oil" and return the top 10 most popular
 # series
 fredr_series_search_text(
@@ -110,7 +132,7 @@ fredr_series_search_id(
 \references{
 API Documentation:
 
-\href{https://research.stlouisfed.org/docs/api/fred/series_search.html}{series/search}
+\href{https://fred.stlouisfed.org/docs/api/fred/series_search.html}{series/search}
 }
 \seealso{
 \code{\link[=fredr_series_observations]{fredr_series_observations()}}, \code{\link[=fredr_series_search_tags]{fredr_series_search_tags()}},

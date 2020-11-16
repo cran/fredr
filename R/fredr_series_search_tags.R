@@ -5,7 +5,6 @@
 #' @inheritParams fredr_series_observations
 #'
 #' @param series_search_text A string containing the series search text.
-#' _Required parameter._
 #'
 #' @param tag_names A semicolon delimited string of tag names to return.  Defaults
 #' no filtering by tag names.
@@ -42,12 +41,12 @@
 #'
 #' @references API Documentation:
 #'
-#' [series/search/tags](https://research.stlouisfed.org/docs/api/fred/series_search_tags.html)
+#' [series/search/tags](https://fred.stlouisfed.org/docs/api/fred/series_search_tags.html)
 #'
 #' @seealso [fredr_series_search_text()], [fredr_series_search_id()], [fredr_series_search_related_tags()], [fredr_tags()]
 #'
 #' @examples
-#' \donttest{
+#' if (fredr_has_key()) {
 #' # Search for tags matching the series text "gnp"
 #' fredr_series_search_tags("gnp")
 #' # Search for tags matching the series text "oil" and the tag text "usa"
@@ -65,7 +64,8 @@
 #' }
 #' @name fredr_series_search_tags
 #' @export
-fredr_series_search_tags <- function(series_search_text = NULL,
+fredr_series_search_tags <- function(series_search_text,
+                                     ...,
                                      tag_names = NULL,
                                      tag_group_id = NULL,
                                      tag_search_text = NULL,
@@ -75,20 +75,20 @@ fredr_series_search_tags <- function(series_search_text = NULL,
                                      sort_order = NULL,
                                      realtime_start = NULL,
                                      realtime_end = NULL) {
-
-  validate_required_string_param(series_search_text)
+  check_dots_empty(...)
+  check_not_null(series_search_text, "series_search_text")
 
   args <- capture_args(
-    series_search_text,
-    limit,
-    offset,
-    order_by,
-    sort_order,
-    tag_names,
-    tag_group_id,
-    tag_search_text,
-    realtime_start,
-    realtime_end
+    series_search_text = series_search_text,
+    limit = limit,
+    offset = offset,
+    order_by = order_by,
+    sort_order = sort_order,
+    tag_names = tag_names,
+    tag_group_id = tag_group_id,
+    tag_search_text = tag_search_text,
+    realtime_start = realtime_start,
+    realtime_end = realtime_end
   )
 
   fredr_args <- list(endpoint = "series/search/tags")
